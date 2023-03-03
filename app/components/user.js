@@ -1,8 +1,8 @@
 function User({user}) {
     return(
         <>
-        {/* <div>{user.name}</div> */}
-        <div>{user.email}</div>
+        <div  className="text-3xl font-bold underline">{user.name}</div>
+        <div >{user.email}</div>
         </>
     )
 }
