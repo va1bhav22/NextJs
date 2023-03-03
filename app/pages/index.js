@@ -1,9 +1,7 @@
 
-
-const index = () => {
-  return (
-    <div>a;somdasm</div>
+function index(){
+  return(
+    <h1> Index page</h1>
   )
 }
-
 export default index
