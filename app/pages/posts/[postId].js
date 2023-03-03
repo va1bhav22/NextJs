@@ -1,16 +1,28 @@
-function Post({ data }) {
+function Post({ post }) {
   return (
     <>
       <h1>single Post</h1>
 
       <h2>
-        {data.id} {data.title}
+        {post.id} {post.title}
       </h2>
-      <p>{data.body}</p>
+      <p>{post.body}</p>
     </>
   );
 }
 export default Post;
+
+export async function  getStaticPaths() {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const data = await response.json();
+
+    const paths = data.map((post)=>{
+        return{
+            params:{postId:`${post.id}`}
+        }
+    })
+    return { paths, fallback: false };
+ }
 
 // export async function  getStaticPaths() {
 //    return{
@@ -30,44 +42,44 @@ export default Post;
 //    }
 // }
 
-// export async function getStaticProps(context) {
-//   const { params } = context;
-//   const response = await fetch(
-//     `https://jsonplaceholder.typicode.com/posts/${params.postId}`
-//   );
-//   const data = await response.json();
-//   // console.log(data)
+export async function getStaticProps(context) {
+  const { params } = context;
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/posts/${params.postId}`
+  );
+  const data = await response.json();
+  // console.log(data)
 
-//   return {
-//     props: {
-//       post: data,
-//     },
-//   };
-// }
+  return {
+    props: {
+      post: data,
+    },
+  };
+}
 
 
 
-export async function getStaticPaths() {
-    // Fetch all data from your API
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-    const data = await response.json();
+// export async function getStaticPaths() {
+//     // Fetch all data from your API
+//     const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+//     const data = await response.json();
   
-    // Map the data to an array of paths with the `id` parameter
-    const paths = data.map(item => ({
-      params: { postId: item.id.toString() },
-    }));
+//     // Map the data to an array of paths with the `id` parameter
+//     const paths = data.map(item => ({
+//       params: { postId: item.id.toString() },
+//     }));
   
-    // Return the paths and fallback value
-    return { paths, fallback: false };
-  }
+//     // Return the paths and fallback value
+//     return { paths, fallback: false };
+//   }
   
-  export async function getStaticProps( context ) {
-    // Fetch the data for the specified ID
-    const {params} =context
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.postId}`);
-    const data = await response.json();
+//   export async function getStaticProps( context ) {
+//     // Fetch the data for the specified ID
+//     const {params} =context
+//     const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.postId}`);
+//     const data = await response.json();
   
-    // Return the data as props
-    return { props: { data } };
-  }
+//     // Return the data as props
+//     return { props: { data } };
+//   }
   
