@@ -1,3 +1,5 @@
+import User from "@/components/user"
+
 function Data({users}){
     return(
         <>
@@ -5,7 +7,7 @@ function Data({users}){
         {users.map(user => {
           return(
             <div key={user.id}>
-               <div>{user.name}</div>
+             <User user={user}/>
             </div>
           )
         })}
